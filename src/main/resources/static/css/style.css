@@ -1,0 +1,66 @@
+html {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0
+}
+
+body,h1,h2,h3,h4,h5 {
+  font-family: "Raleway", sans-serif
+}
+
+h1 {
+  font-size: 36px
+}
+
+h2 {
+  font-size: 30px
+}
+
+h3 {
+  font-size: 24px
+}
+
+h4 {
+  font-size: 20px
+}
+
+h5 {
+  font-size: 18px
+}
+
+h6 {
+  font-size: 16px
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+}
+
+.f-center-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.f-blank-top {
+  margin-top: 10px;
+}
+
+.f-center-text {
+  text-align: center;
+}
+
+.f-hidden {
+  visibility: hidden;
+}
+
+.img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

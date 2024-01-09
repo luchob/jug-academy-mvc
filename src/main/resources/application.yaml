@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/forex?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+forex:
+  api:
+    key: ${FOREX_API_KEY:}
+    url: "https://openexchangerates.org/api/latest.json?app_id={app_id}&prettyprint=false&show_alternative=false"
