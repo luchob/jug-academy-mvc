@@ -5,8 +5,11 @@ import bg.jug.forex.model.dto.ExRatesResponseDTO;
 import bg.jug.forex.model.entity.ExRateEntity;
 import bg.jug.forex.repository.ExRateRepository;
 import bg.jug.forex.service.ExRateService;
+import bg.jug.forex.service.ObjectNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -29,6 +32,24 @@ public class ExRateServiceImpl implements ExRateService {
       ExRateRepository exRateRepository) {
     this.forexApiConfiguration = forexApiConfiguration;
     this.exRateRepository = exRateRepository;
+  }
+
+  @Override
+  public List<String> getAllSupportedCurrencties() {
+    if (hasInitializedExRates()) {
+
+      List<String> allCurrencies = new ArrayList<>();
+      allCurrencies.add(BASE_CURRENCY);
+
+      allCurrencies.addAll(this.exRateRepository.findAll().stream().
+          map(ExRateEntity::getCurrency)
+          .toList());
+
+      return allCurrencies;
+
+    } else {
+      return List.of();
+    }
   }
 
   @Override
@@ -71,8 +92,8 @@ public class ExRateServiceImpl implements ExRateService {
   @Override
   public Optional<BigDecimal> findExRate(String from, String to) {
 
-    if (Objects.equals(from, to)){
-      return  Optional.of(BigDecimal.ONE);
+    if (Objects.equals(from, to)) {
+      return Optional.of(BigDecimal.ONE);
     }
 
     // USD/BGN = x
@@ -95,7 +116,9 @@ public class ExRateServiceImpl implements ExRateService {
   }
 
   @Override
-  public BigDecimal convert(String from, String to, String amount) {
-    return null;
+  public BigDecimal convert(String from, String to, BigDecimal amount) {
+    return findExRate(from, to)
+        .orElseThrow(ObjectNotFoundException::new)
+        .multiply(amount);
   }
 }

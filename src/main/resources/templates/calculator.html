@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Main page</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+</head>
+<body>
+
+
+<form
+    th:action="@{/calculator}"
+    th:method="post">
+
+  <!-- Source currency -->
+  <label for="from">Source currency</label>
+  <select id="from"
+          name="from"
+          class="form-control">
+    <option value="">- Select source currency -</option>
+    <option
+        th:each="c : ${allCurrencies}"
+        th:text="${c}"
+        th:value="${c}">
+    </option>
+  </select>
+  <!-- EO: Source currency -->
+
+  <!-- Target currency -->
+  <label for="to">Target currency</label>
+  <select id="to"
+          name="to"
+          class="form-control">
+    <option value="">- Select target currency -</option>
+    <option
+        th:each="c : ${allCurrencies}"
+        th:text="${c}"
+        th:value="${c}">
+    </option>
+  </select>
+  <!-- EO: Target currency -->
+
+  <label for="amount">Amount: </label>
+  <input
+      id="amount"
+      type="number"
+      name="amount"/>
+
+  <input type="submit" value="Calculate">
+
+</form>
+
+<div
+    th:object="${calculationRequestDTO}"
+    th:if="${result}"
+    class="f-center-text f-blank-top">
+
+  <th:block th:text="*{amount}">10</th:block> <th:block th:text="*{from}">EUR</th:block> make
+  <th:block th:text="${result}">19.70</th:block> <th:block th:text="*{to}">BGN</th:block>
+</div>
+
+</body>
+</html>
