@@ -1,9 +1,13 @@
+
+server:
+  port: 8090
+
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/forex?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
-    password:
+    password: admin
   jpa:
     properties:
       hibernate:
